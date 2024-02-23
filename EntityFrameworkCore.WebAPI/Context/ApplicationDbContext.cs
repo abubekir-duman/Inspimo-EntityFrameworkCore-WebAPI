@@ -14,10 +14,13 @@ namespace EntityFrameworkCore.WebAPI.Context
 
         public DbSet<Personel> Personels { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Personel>().ToTable("Personels");
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+           modelBuilder.Entity<Personel>().Property(p => p.FirstName).HasColumnType("varchar(100)"); //nvarchar(MAX)
+           modelBuilder.Entity<Personel>().Property(p => p.LastName).HasColumnType("varchar(100)");  
+           modelBuilder.Entity<Personel>().Property(p => p.Email).HasColumnType("varchar(500)");
+           modelBuilder.Entity<Personel>().HasIndex(i => i.Email).IsUnique(true);
+        }
 
 
 
